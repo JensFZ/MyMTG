@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Camera, Loader2, ScanLine, Square, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { getCameraStartError, getCameraSupportError } from "@/lib/camera-support";
 
 type ScannerState = "idle" | "camera" | "reading";
 
@@ -41,8 +42,9 @@ export function CardScanner({ targetInputId }: { targetInputId: string }) {
   }, []);
 
   async function startCamera() {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      setMessage("Dieser Browser unterstuetzt keinen Kamerazugriff.");
+    const supportError = getCameraSupportError();
+    if (supportError) {
+      setMessage(supportError);
       return;
     }
 
@@ -63,8 +65,8 @@ export function CardScanner({ targetInputId }: { targetInputId: string }) {
       }
       setState("camera");
       setMessage("Rahme die Karte so ein, dass der Kartenname oben gut lesbar ist.");
-    } catch {
-      setMessage("Kamera konnte nicht gestartet werden. Pruefe die Browser-Berechtigung.");
+    } catch (error) {
+      setMessage(getCameraStartError(error));
     }
   }
 

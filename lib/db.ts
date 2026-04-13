@@ -145,6 +145,38 @@ export function getAllCards() {
   return rows.map(mapCard);
 }
 
+export function searchCards(query: string) {
+  const db = getDatabase();
+  const normalizedQuery = query.trim();
+
+  if (!normalizedQuery) {
+    return getAllCards();
+  }
+
+  const searchTerm = `%${normalizedQuery.toLowerCase()}%`;
+  const rows = db
+    .prepare(`
+      SELECT *
+      FROM cards
+      WHERE
+        lower(name) LIKE @searchTerm OR
+        lower(setName) LIKE @searchTerm OR
+        lower(cardType) LIKE @searchTerm OR
+        lower(rarity) LIKE @searchTerm OR
+        lower(condition) LIKE @searchTerm OR
+        lower(COALESCE(notes, '')) LIKE @searchTerm
+      ORDER BY name ASC, setName ASC, id ASC
+    `)
+    .all({ searchTerm }) as CardRow[];
+
+  return rows.map(mapCard);
+}
+
+export function deleteCard(id: number) {
+  const db = getDatabase();
+  db.prepare("DELETE FROM cards WHERE id = ?").run(id);
+}
+
 export function addDeck(input: {
   name: string;
   format: string;

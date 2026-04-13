@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     });
 
     revalidatePath("/");
+    revalidatePath("/cards");
     revalidatePath("/scan");
 
     return NextResponse.json({ ok: true });

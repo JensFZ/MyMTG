@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Camera, Check, Loader2, ScanLine, ShieldAlert, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { getCameraStartError, getCameraSupportError } from "@/lib/camera-support";
 import type { CardMatch, ScanResult, ScanStatus } from "@/lib/scan-types";
 import {
   cropCardNameCanvas,
@@ -126,8 +127,9 @@ export function LiveCardScanner() {
   }, []);
 
   async function startScanner() {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      setPermissionError("Dieser Browser unterstuetzt keinen Kamerazugriff.");
+    const supportError = getCameraSupportError();
+    if (supportError) {
+      setPermissionError(supportError);
       setStatus("error");
       return;
     }
@@ -159,11 +161,7 @@ export function LiveCardScanner() {
       timerRef.current = window.setInterval(analyzeFrame, analysisIntervalMs);
     } catch (error) {
       setStatus("error");
-      setPermissionError(
-        error instanceof Error
-          ? error.message
-          : "Kamera konnte nicht gestartet werden. Pruefe die Berechtigung.",
-      );
+      setPermissionError(getCameraStartError(error));
     }
   }
 

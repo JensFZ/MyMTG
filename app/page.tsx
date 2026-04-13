@@ -1,6 +1,15 @@
 import Link from "next/link";
-import { ArrowUpRight, Boxes, Layers3, ScanLine, Sparkles, WalletCards } from "lucide-react";
+import {
+  ArrowUpRight,
+  Boxes,
+  Layers3,
+  ScanLine,
+  Sparkles,
+  Trash2,
+  WalletCards,
+} from "lucide-react";
 
+import { deleteCardAction } from "@/app/actions";
 import { CardDistributionChart } from "@/components/card-distribution-chart";
 import { ManaSymbol } from "@/components/mana-symbol";
 import { Button } from "@/components/ui/button";
@@ -116,16 +125,25 @@ export default function DashboardPage() {
                       x{card.quantity}
                     </span>
                   </div>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {(card.colors.length ? card.colors : ["Farblos"]).map((color) => (
-                      <ManaSymbol key={color} color={color} showLabel />
-                    ))}
-                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
-                      MV {card.manaValue}
-                    </span>
-                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
-                      {card.rarity}
-                    </span>
+                  <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                    <div className="flex flex-wrap gap-2">
+                      {(card.colors.length ? card.colors : ["Farblos"]).map((color) => (
+                        <ManaSymbol key={color} color={color} showLabel />
+                      ))}
+                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                        MV {card.manaValue}
+                      </span>
+                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                        {card.rarity}
+                      </span>
+                    </div>
+                    <form action={deleteCardAction}>
+                      <input type="hidden" name="cardId" value={card.id} />
+                      <Button type="submit" variant="ghost" size="sm">
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Loeschen
+                      </Button>
+                    </form>
                   </div>
                 </article>
               ))

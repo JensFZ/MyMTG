@@ -7,6 +7,7 @@ import {
   addCard,
   addCardToDeck,
   addDeck,
+  deleteCard,
   deleteDeck,
   removeCardFromDeck,
   updateDeckCardQuantity,
@@ -43,8 +44,23 @@ export async function createCard(formData: FormData) {
   });
 
   revalidatePath("/");
+  revalidatePath("/cards");
   revalidatePath("/cards/add");
   redirect("/");
+}
+
+export async function deleteCardAction(formData: FormData) {
+  const cardId = toId(formData.get("cardId"));
+
+  if (!cardId) {
+    throw new Error("Karte wurde nicht gefunden.");
+  }
+
+  deleteCard(cardId);
+  revalidatePath("/");
+  revalidatePath("/cards");
+  revalidatePath("/decks");
+  revalidatePath("/scan");
 }
 
 export async function createDeck(formData: FormData) {
