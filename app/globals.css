@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 155 18% 7%;
-    --foreground: 150 24% 94%;
-    --card: 158 18% 11%;
-    --card-foreground: 150 24% 94%;
-    --popover: 158 18% 9%;
-    --popover-foreground: 150 24% 94%;
-    --primary: 162 72% 48%;
-    --primary-foreground: 165 42% 8%;
-    --secondary: 207 22% 18%;
-    --secondary-foreground: 160 20% 92%;
-    --muted: 190 14% 17%;
-    --muted-foreground: 154 10% 66%;
-    --accent: 45 90% 58%;
-    --accent-foreground: 35 42% 9%;
+    --background: 115 10% 7%;
+    --foreground: 90 18% 96%;
+    --card: 112 9% 12%;
+    --card-foreground: 90 18% 96%;
+    --popover: 112 10% 10%;
+    --popover-foreground: 90 18% 96%;
+    --primary: 166 70% 49%;
+    --primary-foreground: 120 22% 7%;
+    --secondary: 15 10% 20%;
+    --secondary-foreground: 90 16% 94%;
+    --muted: 102 8% 20%;
+    --muted-foreground: 84 8% 67%;
+    --accent: 43 88% 56%;
+    --accent-foreground: 40 42% 8%;
     --destructive: 0 74% 52%;
     --destructive-foreground: 0 0% 98%;
-    --border: 165 18% 22%;
-    --input: 165 18% 22%;
+    --border: 88 10% 24%;
+    --input: 88 10% 24%;
     --ring: 162 72% 48%;
     --radius: 0.5rem;
   }
@@ -33,11 +33,11 @@
   }
 
   body {
-    @apply min-h-screen bg-background text-foreground antialiased;
+    @apply min-h-screen overflow-x-hidden bg-background text-foreground antialiased;
     background:
-      radial-gradient(circle at 15% 10%, rgba(47, 179, 136, 0.24), transparent 30%),
-      radial-gradient(circle at 82% 18%, rgba(234, 178, 58, 0.18), transparent 28%),
-      linear-gradient(135deg, #07120f 0%, #0f181b 48%, #11100b 100%);
+      linear-gradient(125deg, rgba(31, 126, 111, 0.2), transparent 34%),
+      linear-gradient(225deg, rgba(220, 167, 48, 0.18), transparent 36%),
+      linear-gradient(180deg, #10130f 0%, #171813 52%, #11110e 100%);
   }
 
   ::selection {
@@ -47,10 +47,35 @@
 
 @layer components {
   .glass-panel {
-    @apply border border-white/10 bg-white/[0.055] shadow-glass backdrop-blur-2xl;
+    @apply border border-white/10 bg-card/80 shadow-glass backdrop-blur-2xl;
   }
 
   .field-shell {
     @apply space-y-2;
+  }
+
+  .page-heading {
+    @apply max-w-full text-3xl font-semibold tracking-tight text-foreground sm:text-5xl;
+    overflow-wrap: anywhere;
+  }
+
+  .eyebrow {
+    @apply inline-flex w-fit rounded-md border border-primary/25 bg-primary/10 px-3 py-1 text-sm font-medium text-primary;
+  }
+
+  .section-grid {
+    @apply grid gap-5;
+  }
+
+  .item-card {
+    @apply rounded-lg border border-white/10 bg-white/[0.04] p-4 transition-colors hover:border-primary/30 hover:bg-white/[0.065];
+  }
+
+  .meta-pill {
+    @apply inline-flex items-center rounded-md bg-white/10 px-2 py-1 text-xs font-medium text-muted-foreground;
+  }
+
+  .form-select {
+    @apply flex h-10 w-full rounded-md border border-input bg-background/70 px-3 py-2 text-sm text-foreground shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50;
   }
 }

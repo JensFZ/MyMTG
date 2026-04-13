@@ -22,7 +22,7 @@ const conditions = ["Near Mint", "Excellent", "Good", "Played", "Poor"];
 export default function AddCardPage() {
   return (
     <div className="mx-auto max-w-4xl animate-fade-up space-y-6">
-      <Button asChild variant="ghost">
+      <Button asChild variant="ghost" className="w-fit">
         <Link href="/">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Zurueck zum Dashboard
@@ -31,6 +31,7 @@ export default function AddCardPage() {
 
       <Card>
         <CardHeader>
+          <p className="eyebrow">Sammlung</p>
           <CardTitle className="text-3xl">Karte hinzufuegen</CardTitle>
           <CardDescription>
             Speichere eine MTG Karte lokal in deiner SQLite Sammlung.
@@ -66,7 +67,7 @@ export default function AddCardPage() {
                 <select
                   id="rarity"
                   name="rarity"
-                  className="flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="form-select"
                   defaultValue="Common"
                 >
                   {rarities.map((rarity) => (
@@ -81,7 +82,7 @@ export default function AddCardPage() {
                 <select
                   id="condition"
                   name="condition"
-                  className="flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="form-select"
                   defaultValue="Near Mint"
                 >
                   {conditions.map((condition) => (
@@ -99,7 +100,7 @@ export default function AddCardPage() {
                 {mtgColors.map((color) => (
                   <label
                     key={color}
-                    className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 bg-white/[0.045] px-3 py-3 text-sm transition-colors hover:bg-white/[0.08]"
+                    className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-3 text-sm transition-colors hover:border-primary/30 hover:bg-white/[0.07]"
                   >
                     <input
                       type="checkbox"

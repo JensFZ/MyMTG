@@ -32,16 +32,17 @@ export default function DecksPage() {
 
   return (
     <div className="animate-fade-up space-y-6">
-      <Button asChild variant="ghost">
+      <Button asChild variant="ghost" className="w-fit">
         <Link href="/">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Zurueck zum Dashboard
         </Link>
       </Button>
 
-      <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+      <section className="grid gap-5 xl:grid-cols-[0.78fr_1.22fr]">
         <Panel>
           <CardHeader>
+            <p className="eyebrow">Deckbau</p>
             <CardTitle className="text-3xl">Deck anlegen</CardTitle>
             <CardDescription>
               Erstelle ein Deck und fuege danach Karten aus deiner Sammlung hinzu.
@@ -59,7 +60,7 @@ export default function DecksPage() {
                 <select
                   id="format"
                   name="format"
-                  className="flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="form-select"
                   defaultValue="Casual"
                 >
                   {formats.map((format) => (
@@ -106,13 +107,13 @@ export default function DecksPage() {
                 return (
                   <article
                     key={deck.id}
-                    className="rounded-lg border border-white/10 bg-white/[0.045] p-4"
+                    className="item-card"
                   >
                     <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                       <div className="space-y-2">
                         <div className="flex flex-wrap items-center gap-2">
                           <h3 className="text-xl font-semibold">{deck.name}</h3>
-                          <span className="rounded-md bg-primary/15 px-2 py-1 text-xs text-primary">
+                          <span className="inline-flex rounded-md bg-primary/15 px-2 py-1 text-xs font-medium text-primary">
                             {deck.format}
                           </span>
                         </div>
@@ -137,7 +138,7 @@ export default function DecksPage() {
 
                     <form
                       action={addCardToDeckAction}
-                      className="mt-5 grid gap-3 rounded-lg border border-white/10 bg-background/30 p-3 md:grid-cols-[1fr_7rem_auto]"
+                      className="mt-5 grid gap-3 rounded-lg border border-white/10 bg-black/15 p-3 md:grid-cols-[1fr_7rem_auto]"
                     >
                       <input type="hidden" name="deckId" value={deck.id} />
                       <div className="field-shell">
@@ -145,7 +146,7 @@ export default function DecksPage() {
                         <select
                           id={`card-${deck.id}`}
                           name="cardId"
-                          className="flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                          className="form-select"
                           required
                           disabled={cards.length === 0}
                         >
@@ -186,12 +187,12 @@ export default function DecksPage() {
                         deckCards.map((card) => (
                           <div
                             key={card.id}
-                            className="grid gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3 md:grid-cols-[1fr_auto]"
+                            className="grid gap-3 rounded-lg border border-white/10 bg-black/10 p-3 md:grid-cols-[1fr_auto]"
                           >
                             <div>
                               <div className="flex flex-wrap items-center gap-2">
                                 <h4 className="font-medium">{card.name}</h4>
-                                <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                                <span className="meta-pill">
                                   x{card.deckQuantity}
                                 </span>
                               </div>
@@ -204,7 +205,7 @@ export default function DecksPage() {
                                     <ManaSymbol key={color} color={color} showLabel />
                                   ),
                                 )}
-                                <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                                <span className="meta-pill">
                                   MV {card.manaValue}
                                 </span>
                               </div>

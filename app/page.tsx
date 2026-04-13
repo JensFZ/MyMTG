@@ -30,15 +30,15 @@ export default function DashboardPage() {
   const colorDistribution = getColorDistribution();
 
   return (
-    <div className="space-y-8 animate-fade-up">
-      <section className="glass-panel rounded-lg px-6 py-8 sm:px-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div className="animate-fade-up space-y-7">
+      <section className="glass-panel rounded-lg px-5 py-7 sm:px-8 sm:py-9">
+        <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-3xl space-y-4">
-            <p className="inline-flex rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary">
+            <p className="eyebrow">
               Lokale SQLite Sammlung
             </p>
             <div className="space-y-3">
-              <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
+              <h2 className="page-heading max-w-3xl">
                 Deine Magic Karten, sauber sortiert.
               </h2>
               <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
@@ -64,7 +64,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           icon={<WalletCards className="h-5 w-5" />}
           label="Karten gesamt"
@@ -87,7 +87,7 @@ export default function DashboardPage() {
         />
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
         <Card>
           <CardHeader>
             <CardTitle>Farbverteilung</CardTitle>
@@ -112,7 +112,7 @@ export default function DashboardPage() {
               latestCards.map((card) => (
                 <article
                   key={card.id}
-                  className="rounded-lg border border-white/10 bg-white/[0.045] p-4 transition-transform hover:-translate-y-0.5"
+                  className="item-card"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
                         {card.setName} - {card.cardType}
                       </p>
                     </div>
-                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs text-muted-foreground">
+                    <span className="meta-pill">
                       x{card.quantity}
                     </span>
                   </div>
@@ -130,10 +130,10 @@ export default function DashboardPage() {
                       {(card.colors.length ? card.colors : ["Farblos"]).map((color) => (
                         <ManaSymbol key={color} color={color} showLabel />
                       ))}
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      <span className="meta-pill">
                         MV {card.manaValue}
                       </span>
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      <span className="meta-pill">
                         {card.rarity}
                       </span>
                     </div>
@@ -166,12 +166,12 @@ function StatCard({
 }) {
   return (
     <Card>
-      <CardContent className="flex items-center justify-between p-6">
+      <CardContent className="flex min-h-32 items-center justify-between p-5 sm:p-6">
         <div>
           <p className="text-sm text-muted-foreground">{label}</p>
           <p className="mt-2 text-3xl font-semibold">{value}</p>
         </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/15 text-primary">
+        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary ring-1 ring-primary/20">
           {icon}
         </div>
       </CardContent>

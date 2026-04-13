@@ -31,11 +31,11 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
 
   return (
     <div className="animate-fade-up space-y-6">
-      <section className="glass-panel rounded-lg p-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <section className="glass-panel rounded-lg p-5 sm:p-6">
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="text-sm text-muted-foreground">Sammlung</p>
-            <h2 className="mt-1 text-3xl font-semibold tracking-tight">Kartenuebersicht</h2>
+            <p className="eyebrow">Sammlung</p>
+            <h2 className="page-heading mt-3">Kartenuebersicht</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               {stats.uniqueCards} einzigartige Karten, {stats.totalCards} Karten gesamt.
             </p>
@@ -57,7 +57,7 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action="/cards" className="grid gap-3 sm:grid-cols-[1fr_auto_auto]">
+          <form action="/cards" className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
             <div className="field-shell">
               <Label htmlFor="q">Suchbegriff</Label>
               <Input
@@ -99,12 +99,12 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
               {cards.map((card) => (
                 <article
                   key={card.id}
-                  className="grid gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 lg:grid-cols-[1fr_auto]"
+                  className="item-card grid gap-4 lg:grid-cols-[1fr_auto]"
                 >
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="text-lg font-medium">{card.name}</h3>
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs text-muted-foreground">
+                      <span className="meta-pill">
                         x{card.quantity}
                       </span>
                       <span className="rounded-md bg-primary/15 px-2 py-1 text-xs text-primary">
@@ -118,10 +118,10 @@ export default async function CardsPage({ searchParams }: CardsPageProps) {
                       {(card.colors.length ? card.colors : ["Farblos"]).map((color) => (
                         <ManaSymbol key={color} color={color} showLabel />
                       ))}
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      <span className="meta-pill">
                         MV {card.manaValue}
                       </span>
-                      <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      <span className="meta-pill">
                         {card.rarity}
                       </span>
                     </div>

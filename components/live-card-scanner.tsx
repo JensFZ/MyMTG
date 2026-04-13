@@ -295,7 +295,7 @@ export function LiveCardScanner() {
 
   return (
     <div className="space-y-5">
-      <div className="overflow-hidden rounded-lg border border-white/10 bg-black">
+      <div className="overflow-hidden rounded-lg border border-white/10 bg-black shadow-glass">
         <div className="relative aspect-[3/4] max-h-[72vh] w-full sm:aspect-video">
           <video
             ref={videoRef}
@@ -304,9 +304,9 @@ export function LiveCardScanner() {
             muted
             autoPlay
           />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.32),transparent_22%,transparent_78%,rgba(0,0,0,0.38))]" />
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-2 border-primary/80 shadow-[0_0_44px_rgba(53,214,164,0.35)] sm:h-[82%] sm:w-[42%]" />
-          <div className="absolute left-4 top-4 rounded-md border border-white/10 bg-black/55 px-3 py-2 text-sm backdrop-blur">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.42),transparent_24%,transparent_76%,rgba(0,0,0,0.5))]" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-lg border-2 border-primary/80 shadow-[0_0_34px_rgba(42,214,170,0.35)] sm:h-[82%] sm:w-[42%]" />
+          <div className="absolute left-4 top-4 rounded-md border border-white/10 bg-black/65 px-3 py-2 text-sm backdrop-blur">
             <span className="inline-flex items-center gap-2">
               {status === "processing" || status === "starting" ? (
                 <Loader2 className="h-4 w-4 animate-spin text-primary" />
@@ -323,7 +323,7 @@ export function LiveCardScanner() {
         </div>
       </div>
 
-      <div className="glass-panel rounded-lg p-4">
+      <div className="glass-panel rounded-lg p-4 sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-medium">{message}</p>
@@ -377,7 +377,7 @@ export function LiveCardScanner() {
                 key={card.id}
                 type="button"
                 onClick={() => confirmCard(card)}
-                className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.045] p-3 text-left transition-colors hover:bg-white/[0.08]"
+                className="item-card flex items-center gap-3 text-left"
               >
                 {card.imageUrl ? (
                   <img src={card.imageUrl} alt="" className="h-14 w-10 rounded object-cover" />

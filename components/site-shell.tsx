@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen overflow-hidden">
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-6 sm:px-8">
+    <div className="min-h-screen overflow-x-hidden">
+      <header className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
         <Link href="/" className="group flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/10 transition-colors group-hover:bg-white/15">
+          <div className="flex h-11 w-11 items-center justify-center rounded-md border border-primary/25 bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
             <LibraryBig className="h-5 w-5 text-primary" />
           </div>
           <div>
@@ -17,24 +17,24 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-2">
+        <nav className="flex w-full min-w-0 max-w-full items-center gap-2 overflow-x-auto rounded-lg border border-white/10 bg-black/15 p-1 lg:w-fit">
           <Button asChild variant="ghost">
-            <Link href="/">Dashboard</Link>
+            <Link href="/" className="shrink-0">Dashboard</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link href="/cards">Karten</Link>
+            <Link href="/cards" className="shrink-0">Karten</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link href="/decks">Decks</Link>
+            <Link href="/decks" className="shrink-0">Decks</Link>
           </Button>
           <Button asChild variant="ghost">
-            <Link href="/scan">
+            <Link href="/scan" className="shrink-0">
               <ScanLine className="mr-2 h-4 w-4" />
               Scan
             </Link>
           </Button>
           <Button asChild>
-            <Link href="/cards/add">
+            <Link href="/cards/add" className="shrink-0">
               <Plus className="mr-2 h-4 w-4" />
               Karte
             </Link>

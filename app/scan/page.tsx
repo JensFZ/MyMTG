@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 export default function ScanPage() {
   return (
     <div className="mx-auto max-w-5xl animate-fade-up space-y-6">
-      <Button asChild variant="ghost">
+      <Button asChild variant="ghost" className="w-fit">
         <Link href="/">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Zurueck zum Dashboard
@@ -26,7 +26,7 @@ export default function ScanPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/15 text-primary">
+            <div className="flex h-11 w-11 items-center justify-center rounded-md bg-primary/10 text-primary ring-1 ring-primary/20">
               <ScanLine className="h-5 w-5" />
             </div>
             <div>

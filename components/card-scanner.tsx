@@ -139,7 +139,7 @@ export function CardScanner({ targetInputId }: { targetInputId: string }) {
   }
 
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.045] p-4">
+    <div className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-1">
           <p className="flex items-center gap-2 text-sm font-medium">
@@ -174,10 +174,10 @@ export function CardScanner({ targetInputId }: { targetInputId: string }) {
       </div>
 
       {state !== "idle" ? (
-        <div className="mt-4 overflow-hidden rounded-lg border border-white/10 bg-black">
+        <div className="mt-4 overflow-hidden rounded-lg border border-white/10 bg-black shadow-glass">
           <video ref={videoRef} className="aspect-video w-full object-cover" playsInline muted />
           <div className="pointer-events-none -mt-[56.25%] aspect-video w-full">
-            <div className="mx-auto mt-[13%] h-[16%] w-[68%] rounded-md border-2 border-primary/80 bg-primary/10 shadow-[0_0_40px_rgba(53,214,164,0.28)]" />
+            <div className="mx-auto mt-[13%] h-[16%] w-[68%] rounded-md border-2 border-primary/80 bg-primary/10 shadow-[0_0_34px_rgba(42,214,170,0.32)]" />
           </div>
         </div>
       ) : null}
