@@ -45,6 +45,7 @@ Die App ist mit Next.js gebaut und speichert Karten lokal in `data/mymtg.sqlite`
 
 - Node.js
 - npm
+- Docker fuer Server-Deployment
 - Fuer iOS: macOS mit Xcode
 
 ## Installation
@@ -82,18 +83,49 @@ npx tsc --noEmit
 
 Image bauen:
 
-```powershell
+```bash
 docker build -t mymtg .
 ```
 
 Container mit persistentem SQLite-Volume starten:
 
-```powershell
+```bash
 docker run -d --name mymtg -p 3000:3000 -v mymtg-data:/app/data mymtg
 ```
 
 Die App ist danach unter `http://localhost:3000` erreichbar. Die Datenbank wird
 im Volume `mymtg-data` gespeichert.
+
+### Serverbetrieb
+
+Der Container nutzt standardmaessig:
+
+```text
+PORT=3000
+DATA_DIR=/app/data
+```
+
+`DATA_DIR` zeigt auf das Verzeichnis, in dem `mymtg.sqlite` angelegt wird. Wenn
+du statt eines Docker-Volumes ein Host-Verzeichnis mounten willst:
+
+```bash
+docker run -d \
+  --name mymtg \
+  -p 3000:3000 \
+  -v /srv/mymtg/data:/app/data \
+  mymtg
+```
+
+Backup der SQLite-Datenbank aus einem Docker-Volume:
+
+```bash
+docker run --rm -v mymtg-data:/data -v "$PWD":/backup alpine \
+  cp /data/mymtg.sqlite /backup/mymtg.sqlite
+```
+
+Fuer produktiven Betrieb empfiehlt sich ein Reverse Proxy mit HTTPS, zum Beispiel
+Caddy, Traefik oder nginx. HTTPS ist auch wichtig, wenn der Kamera-Scanner aus
+einem mobilen Browser genutzt werden soll.
 
 ## Datenhaltung
 
@@ -105,6 +137,12 @@ data/mymtg.sqlite
 
 Der Ordner `data` ist bewusst in `.gitignore`, damit lokale Sammlungen nicht
 committet werden.
+
+Im Docker-Container liegt die Datenbank unter:
+
+```text
+/app/data/mymtg.sqlite
+```
 
 ## Scanner
 
