@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Boxes, Layers3, Sparkles, WalletCards } from "lucide-react";
+import { ArrowUpRight, Boxes, Layers3, ScanLine, Sparkles, WalletCards } from "lucide-react";
 
 import { CardDistributionChart } from "@/components/card-distribution-chart";
 import { ManaSymbol } from "@/components/mana-symbol";
@@ -38,12 +38,20 @@ export default function DashboardPage() {
               </p>
             </div>
           </div>
-          <Button asChild size="lg" className="w-full sm:w-fit">
-            <Link href="/cards/add">
-              Neue Karte hinzufuegen
-              <ArrowUpRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg" className="w-full sm:w-fit">
+              <Link href="/scan">
+                Live scannen
+                <ScanLine className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-fit">
+              <Link href="/cards/add">
+                Manuell hinzufuegen
+                <ArrowUpRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LibraryBig, Plus } from "lucide-react";
+import { LibraryBig, Plus, ScanLine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -23,6 +23,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           </Button>
           <Button asChild variant="ghost">
             <Link href="/decks">Decks</Link>
+          </Button>
+          <Button asChild variant="ghost">
+            <Link href="/scan">
+              <ScanLine className="mr-2 h-4 w-4" />
+              Scan
+            </Link>
           </Button>
           <Button asChild>
             <Link href="/cards/add">
