@@ -78,6 +78,23 @@ npm run build
 npx tsc --noEmit
 ```
 
+## Docker
+
+Image bauen:
+
+```powershell
+docker build -t mymtg .
+```
+
+Container mit persistentem SQLite-Volume starten:
+
+```powershell
+docker run -d --name mymtg -p 3000:3000 -v mymtg-data:/app/data mymtg
+```
+
+Die App ist danach unter `http://localhost:3000` erreichbar. Die Datenbank wird
+im Volume `mymtg-data` gespeichert.
+
 ## Datenhaltung
 
 Die SQLite-Datenbank liegt lokal unter:

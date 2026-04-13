@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+data
+*.log
+*.zip
+tsconfig.tsbuildinfo
+ios
+capacitor-www
+docs/screenshots
+README.md
+CAPACITOR.md
