@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 155 18% 7%;
+    --foreground: 150 24% 94%;
+    --card: 158 18% 11%;
+    --card-foreground: 150 24% 94%;
+    --popover: 158 18% 9%;
+    --popover-foreground: 150 24% 94%;
+    --primary: 162 72% 48%;
+    --primary-foreground: 165 42% 8%;
+    --secondary: 207 22% 18%;
+    --secondary-foreground: 160 20% 92%;
+    --muted: 190 14% 17%;
+    --muted-foreground: 154 10% 66%;
+    --accent: 45 90% 58%;
+    --accent-foreground: 35 42% 9%;
+    --destructive: 0 74% 52%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 165 18% 22%;
+    --input: 165 18% 22%;
+    --ring: 162 72% 48%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(47, 179, 136, 0.24), transparent 30%),
+      radial-gradient(circle at 82% 18%, rgba(234, 178, 58, 0.18), transparent 28%),
+      linear-gradient(135deg, #07120f 0%, #0f181b 48%, #11100b 100%);
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-foreground;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply border border-white/10 bg-white/[0.055] shadow-glass backdrop-blur-2xl;
+  }
+
+  .field-shell {
+    @apply space-y-2;
+  }
+}

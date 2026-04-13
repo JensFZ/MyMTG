@@ -1,0 +1,154 @@
+import Link from "next/link";
+import { ArrowUpRight, Boxes, Layers3, Sparkles, WalletCards } from "lucide-react";
+
+import { CardDistributionChart } from "@/components/card-distribution-chart";
+import { ManaSymbol } from "@/components/mana-symbol";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getCollectionStats, getColorDistribution, getLatestCards } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
+
+export default function DashboardPage() {
+  const latestCards = getLatestCards();
+  const stats = getCollectionStats();
+  const colorDistribution = getColorDistribution();
+
+  return (
+    <div className="space-y-8 animate-fade-up">
+      <section className="glass-panel rounded-lg px-6 py-8 sm:px-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl space-y-4">
+            <p className="inline-flex rounded-md border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary">
+              Lokale SQLite Sammlung
+            </p>
+            <div className="space-y-3">
+              <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
+                Deine Magic Karten, sauber sortiert.
+              </h2>
+              <p className="max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+                Erfasse Karten, pruefe deine letzten Eintraege und behalte die
+                Farbverteilung deiner Sammlung im Blick.
+              </p>
+            </div>
+          </div>
+          <Button asChild size="lg" className="w-full sm:w-fit">
+            <Link href="/cards/add">
+              Neue Karte hinzufuegen
+              <ArrowUpRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-4">
+        <StatCard
+          icon={<WalletCards className="h-5 w-5" />}
+          label="Karten gesamt"
+          value={stats.totalCards}
+        />
+        <StatCard
+          icon={<Layers3 className="h-5 w-5" />}
+          label="Einzigartige Karten"
+          value={stats.uniqueCards}
+        />
+        <StatCard
+          icon={<Sparkles className="h-5 w-5" />}
+          label="Durchschnitt Manawert"
+          value={stats.averageMana}
+        />
+        <StatCard
+          icon={<Boxes className="h-5 w-5" />}
+          label="Decks"
+          value={stats.decks}
+        />
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card>
+          <CardHeader>
+            <CardTitle>Farbverteilung</CardTitle>
+            <CardDescription>Anzahl der Karten nach Farbidentitaet.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CardDistributionChart data={colorDistribution} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Letzte MTG Karten</CardTitle>
+            <CardDescription>Die neuesten Eintraege aus deiner lokalen Sammlung.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {latestCards.length === 0 ? (
+              <div className="rounded-lg border border-dashed border-white/15 p-6 text-sm text-muted-foreground">
+                Noch keine Karten gespeichert. Fuege deine erste Karte hinzu.
+              </div>
+            ) : (
+              latestCards.map((card) => (
+                <article
+                  key={card.id}
+                  className="rounded-lg border border-white/10 bg-white/[0.045] p-4 transition-transform hover:-translate-y-0.5"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-medium">{card.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {card.setName} - {card.cardType}
+                      </p>
+                    </div>
+                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs text-muted-foreground">
+                      x{card.quantity}
+                    </span>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {(card.colors.length ? card.colors : ["Farblos"]).map((color) => (
+                      <ManaSymbol key={color} color={color} showLabel />
+                    ))}
+                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      MV {card.manaValue}
+                    </span>
+                    <span className="rounded-md bg-white/10 px-2 py-1 text-xs">
+                      {card.rarity}
+                    </span>
+                  </div>
+                </article>
+              ))
+            )}
+          </CardContent>
+        </Card>
+      </section>
+    </div>
+  );
+}
+
+function StatCard({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+}) {
+  return (
+    <Card>
+      <CardContent className="flex items-center justify-between p-6">
+        <div>
+          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="mt-2 text-3xl font-semibold">{value}</p>
+        </div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/15 text-primary">
+          {icon}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
