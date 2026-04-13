@@ -96,6 +96,19 @@ docker run -d --name mymtg -p 3000:3000 -v mymtg-data:/app/data mymtg
 Die App ist danach unter `http://localhost:3000` erreichbar. Die Datenbank wird
 im Volume `mymtg-data` gespeichert.
 
+Alternativ mit Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+Logs ansehen und Container stoppen:
+
+```bash
+docker compose logs -f
+docker compose down
+```
+
 ### Serverbetrieb
 
 Der Container nutzt standardmaessig:

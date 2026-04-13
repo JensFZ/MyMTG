@@ -1,0 +1,19 @@
+services:
+  mymtg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mymtg:latest
+    container_name: mymtg
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATA_DIR: /app/data
+    ports:
+      - "3000:3000"
+    volumes:
+      - mymtg-data:/app/data
+
+volumes:
+  mymtg-data:
